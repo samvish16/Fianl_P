@@ -1,156 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Galactic Adventure</title>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lights Out</title>
+<style>
     /* CSS styles for game layout */
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #03051A; /* Dark space background */
-      flex-direction: column;
-      color: #FFFFFF; /* White text */
-      font-family: 'Roboto', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
     }
-    h1 {
-      margin-bottom: 20px;
-      color: #FDFDFD; /* Lighter text color */
-    }
-    .container {
-      display: grid;
-      grid-template-columns: repeat(5, 50px);
-      grid-gap: 5px;
-      justify-content: center;
-      align-items: center;
+    .board {
+        display: grid;
+        grid-template-columns: repeat(5, 50px);
+        grid-gap: 5px;
     }
     .cell {
-      width: 50px;
-      height: 50px;
-      background-color: #0B2545; /* Deep blue tiles */
-      border: 1px solid #FFFFFF; /* White border */
-      cursor: pointer;
+        width: 50px;
+        height: 50px;
+        background-color: white;
+        border: 1px solid #ccc;
+        cursor: pointer;
     }
-    .cell.active {
-      background-color: #F6BB5F; /* Bright yellow active tiles */
+    .cell.on {
+        background-color: black;
     }
-    .restart-btn {
-      margin-top: 20px;
-      text-align: center;
-    }
-    .restart-btn button {
-      padding: 10px 20px;
-      background-color: #F6BB5F; /* Yellow restart button */
-      color: #03051A; /* Dark text for button */
-      border: 1px solid #F6BB5F; /* Yellow border for button */
-      cursor: pointer;
-    }
-    .restart-btn button:hover {
-      background-color: #FFFFFF; /* White on hover */
-      color: #03051A;
-    }
-    /* Addendum styles */
-    .addendum {
-      margin-top: 30px;
-      border-top: 1px solid #FFFFFF;
-      padding-top: 20px;
-    }
-    .addendum h2 {
-      margin-bottom: 10px;
-      color: #FDFDFD;
-    }
-    .addendum p {
-      margin-bottom: 15px;
-    }
-  </style>
+</style>
 </head>
 <body>
 
-<h1>Galactic Adventure</h1>
+<h1>Lights Out</h1>
 
-<div class="container" id="board"></div>
-<div class="restart-btn">
-  <button onclick="restartGame()">Restart</button>
-</div>
+<div class="board" id="board"></div>
 
 <script>
-  const boardSize = 5;
-  let board = [];
+    const boardSize = 5;
+    let board = [];
 
-  // Create a random solvable board
-  function createBoard() {
-    board = [];
-    for (let i = 0; i < boardSize; i++) {
-      board[i] = [];
-      for (let j = 0; j < boardSize; j++) {
-        board[i][j] = Math.random() > 0.5 ? 1 : 0;
-      }
+    // Create a random solvable board
+    function createBoard() {
+        board = [];
+        for (let i = 0; i < boardSize; i++) {
+            board[i] = [];
+            for (let j = 0; j < boardSize; j++) {
+                board[i][j] = Math.random() > 0.5 ? 1 : 0;
+            }
+        }
     }
-  }
 
-  // Check if the board is solved
-  function isSolved() {
-    return board.every(row => row.every(cell => cell === 0));
-  }
-
-  // Toggle the lights when a cell is clicked
-  function toggleCell(row, col) {
-    board[row][col] ^= 1;
-    if (row > 0) board[row - 1][col] ^= 1;
-    if (row < boardSize - 1) board[row + 1][col] ^= 1;
-    if (col > 0) board[row][col - 1] ^= 1;
-    if (col < boardSize - 1) board[row][col + 1] ^= 1;
-  }
-
-  // Render the board
-  function renderBoard() {
-    const boardElement = document.getElementById('board');
-    boardElement.innerHTML = '';
-    for (let i = 0; i < boardSize; i++) {
-      for (let j = 0; j < boardSize; j++) {
-        const cell = document.createElement('div');
-        cell.className = 'cell';
-        if (board[i][j] === 1) cell.classList.add('active'); // Add 'active' class for lit tiles
-        cell.addEventListener('click', () => {
-          toggleCell(i, j);
-          renderBoard();
-          if (isSolved()) {
-            window.alert('Congratulations! You reached the destination!');
-            createBoard();
-            renderBoard();
-          }
-        });
-        boardElement.appendChild(cell);
-      }
+    // Check if the board is solved
+    function isSolved() {
+        return board.every(row => row.every(cell => cell === 0));
     }
-  }
 
-  // Initialize the game
-  createBoard();
-  renderBoard();
+    // Toggle the lights when a cell is clicked
+    function toggleCell(row, col) {
+        board[row][col] ^= 1;
+        if (row > 0) board[row - 1][col] ^= 1;
+        if (row < boardSize - 1) board[row + 1][col] ^= 1;
+        if (col > 0) board[row][col - 1] ^= 1;
+        if (col < boardSize - 1) board[row][col + 1] ^= 1;
+    }
 
-  // Restart the game
-  function restartGame() {
+    // Render the board
+    function renderBoard() {
+        const boardElement = document.getElementById('board');
+        boardElement.innerHTML = '';
+        for (let i = 0; i < boardSize; i++) {
+            for (let j = 0; j < boardSize; j++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                if (board[i][j] === 1) cell.classList.add('on');
+                cell.addEventListener('click', () => {
+                    toggleCell(i, j);
+                    renderBoard();
+                    if (isSolved()) {
+                        window.alert('Congratulations! You win the game!');
+                        createBoard();
+                        renderBoard();
+                    }
+                });
+                boardElement.appendChild(cell);
+            }
+        }
+    }
+
+    // Initialize the game
     createBoard();
     renderBoard();
-  }
 </script>
 
-<!-- Addendum explaining the code and creative process -->
-<div class="addendum">
-  <h2>Explanation and Creative Process:</h2>
-  <p>
-    The "Galactic Adventure" game theme transports players into a space journey, where they navigate through galactic tiles to reach their destination. The design elements, such as the dark space background, deep blue tiles, and bright yellow active tiles, create an immersive space experience.
-  </p>
-  <p>
-    The game logic remains similar to the original "Lights Out" concept, where toggling cells simulates navigating through space tiles. The win condition signifies reaching the destination, adding a thematic touch to the gameplay.
-  </p>
-  <p>
-    Enhancements were made to the UI, including the color scheme, font, and button design, to align with the galactic theme and ensure player engagement. Iterative development and testing were crucial in refining the game mechanics and visual aesthetics for an enjoyable gaming experience.
-  </p>
-</div>
+<footer>
+    <p>Last updated: <span id="lastModified"></span></p>
+</footer>
+<script type="text/javascript">
+    var x = document.lastModified;
+    document.getElementById('lastModified').textContent = x;
+</script>
 
 </body>
 </html>
