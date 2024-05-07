@@ -10,15 +10,25 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        min-height: 100vh;
         margin: 0;
         background-color: #f0f0f0;
-        font-family: Arial, sans-serif;
+        font-family: 'Arial', sans-serif;
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
     }
     .board {
         display: grid;
         grid-template-columns: repeat(5, 50px);
         grid-gap: 5px;
+        background-color: #fff;
+        border: 5px solid #333;
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
     }
     .cell {
         width: 50px;
@@ -26,9 +36,10 @@
         background-color: white;
         border: 1px solid #ccc;
         cursor: pointer;
+        transition: background-color 0.3s ease;
     }
     .cell.on {
-        background-color: black;
+        background-color: #333;
     }
 </style>
 </head>
@@ -102,6 +113,23 @@
     var x = document.lastModified;
     document.getElementById('lastModified').textContent = x;
 </script>
+
+<!-- Addendum explaining the creative process -->
+<div class="addendum">
+    <h2>Addendum: Creative Process</h2>
+    <p>
+        The "Lights Out" game was designed with a focus on creating an engaging and visually appealing experience for players. The game board is structured with a sleek grid layout, bordered and shadowed to give it a modern look.
+    </p>
+    <p>
+        Stylistically, contrasting colors were used to enhance visibility and create a sense of interaction. The transition effect on cell clicks adds a subtle but satisfying visual feedback to the player's actions.
+    </p>
+    <p>
+        One challenge faced during development was ensuring random yet solvable starting configurations for the board. This was overcome by implementing a toggle function that simulates clicks, allowing for a white board that becomes solvable upon user interaction.
+    </p>
+    <p>
+        Overall, the iterative design process and attention to detail resulted in a polished game interface that delivers an enjoyable gaming experience while maintaining simplicity and elegance.
+    </p>
+</div>
 
 </body>
 </html>
