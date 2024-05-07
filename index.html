@@ -41,6 +41,22 @@
     .cell.on {
         background-color: #333;
     }
+    .buttons {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .buttons button {
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 10px;
+    }
+    .buttons button:hover {
+        background-color: #555;
+    }
 </style>
 </head>
 <body>
@@ -48,6 +64,11 @@
 <h1>Lights Out</h1>
 
 <div class="board" id="board"></div>
+
+<div class="buttons">
+    <button onclick="startGame()">Start</button>
+    <button onclick="restartGame()">Restart</button>
+</div>
 
 <script>
     const boardSize = 5;
@@ -102,8 +123,19 @@
     }
 
     // Initialize the game
-    createBoard();
-    renderBoard();
+    function startGame() {
+        createBoard();
+        renderBoard();
+    }
+
+    // Restart the game
+    function restartGame() {
+        createBoard();
+        renderBoard();
+    }
+
+    // Initialize the game on load
+    window.onload = startGame;
 </script>
 
 <footer>
