@@ -57,6 +57,18 @@
     .buttons button:hover {
         background-color: #555;
     }
+    .addendum {
+        margin-top: 30px;
+        text-align: center;
+    }
+    .addendum h2 {
+        margin-bottom: 10px;
+        color: #333;
+    }
+    .addendum p {
+        margin-bottom: 15px;
+        color: #555;
+    }
 </style>
 </head>
 <body>
@@ -69,6 +81,31 @@
     <button onclick="startGame()">Start</button>
     <button onclick="restartGame()">Restart</button>
 </div>
+
+<!-- Addendum explaining the creative process -->
+<div class="addendum">
+    <h2>Addendum: Creative Process</h2>
+    <p>
+        The "Lights Out" game was designed with a focus on creating an engaging and visually appealing experience for players. The game board is structured with a sleek grid layout, bordered and shadowed to give it a modern look.
+    </p>
+    <p>
+        Stylistically, contrasting colors were used to enhance visibility and create a sense of interaction. The transition effect on cell clicks adds a subtle but satisfying visual feedback to the player's actions.
+    </p>
+    <p>
+        One challenge faced during development was ensuring random yet solvable starting configurations for the board. This was overcome by implementing a toggle function that simulates clicks, allowing for a white board that becomes solvable upon user interaction.
+    </p>
+    <p>
+        Overall, the iterative design process and attention to detail resulted in a polished game interface that delivers an enjoyable gaming experience while maintaining simplicity and elegance.
+    </p>
+</div>
+
+<footer>
+    <p>Last updated: <span id="lastModified"></span></p>
+</footer>
+<script type="text/javascript">
+    var x = document.lastModified;
+    document.getElementById('lastModified').textContent = x;
+</script>
 
 <script>
     const boardSize = 5;
@@ -137,31 +174,6 @@
     // Initialize the game on load
     window.onload = startGame;
 </script>
-
-<footer>
-    <p>Last updated: <span id="lastModified"></span></p>
-</footer>
-<script type="text/javascript">
-    var x = document.lastModified;
-    document.getElementById('lastModified').textContent = x;
-</script>
-
-<!-- Addendum explaining the creative process -->
-<div class="addendum">
-    <h2>Addendum: Creative Process</h2>
-    <p>
-        The "Lights Out" game was designed with a focus on creating an engaging and visually appealing experience for players. The game board is structured with a sleek grid layout, bordered and shadowed to give it a modern look.
-    </p>
-    <p>
-        Stylistically, contrasting colors were used to enhance visibility and create a sense of interaction. The transition effect on cell clicks adds a subtle but satisfying visual feedback to the player's actions.
-    </p>
-    <p>
-        One challenge faced during development was ensuring random yet solvable starting configurations for the board. This was overcome by implementing a toggle function that simulates clicks, allowing for a white board that becomes solvable upon user interaction.
-    </p>
-    <p>
-        Overall, the iterative design process and attention to detail resulted in a polished game interface that delivers an enjoyable gaming experience while maintaining simplicity and elegance.
-    </p>
-</div>
 
 </body>
 </html>
