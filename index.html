@@ -12,62 +12,66 @@
         align-items: center;
         min-height: 100vh;
         margin: 0;
-        background-color: #f0f0f0;
-        font-family: 'Arial', sans-serif;
+        background-color: #03051A; /* Dark space background */
+        flex-direction: column;
+        color: #FFFFFF; /* White text */
+        font-family: 'Roboto', sans-serif;
     }
     h1 {
-        text-align: center;
-        color: #333;
         margin-bottom: 20px;
+        color: #FDFDFD; /* Lighter text color */
     }
-    .board {
+    .container {
         display: grid;
         grid-template-columns: repeat(5, 50px);
         grid-gap: 5px;
-        background-color: #fff;
-        border: 5px solid #333;
-        border-radius: 10px;
-        padding: 10px;
-        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+        justify-content: center;
+        align-items: center;
     }
     .cell {
         width: 50px;
         height: 50px;
-        background-color: white;
-        border: 1px solid #ccc;
+        background-color: #0B2545; /* Deep blue tiles */
+        border: 1px solid #FFFFFF; /* White border */
         cursor: pointer;
-        transition: background-color 0.3s ease;
     }
-    .cell.on {
-        background-color: #333;
+    .cell.active {
+        background-color: #F6BB5F; /* Bright yellow active tiles */
     }
-    .buttons {
-        text-align: center;
+    .restart-btn {
         margin-top: 20px;
+        text-align: center;
     }
-    .buttons button {
+    .restart-btn button {
         padding: 10px 20px;
-        background-color: #333;
-        color: #fff;
-        border: none;
+        background-color: #F6BB5F; /* Yellow restart button */
+        color: #03051A; /* Dark text for button */
+        border: 1px solid #F6BB5F; /* Yellow border for button */
         cursor: pointer;
-        font-size: 16px;
-        margin-right: 10px;
     }
-    .buttons button:hover {
-        background-color: #555;
+    .restart-btn button:hover {
+        background-color: #FFFFFF; /* White on hover */
+        color: #03051A;
     }
+    /* Addendum styles */
     .addendum {
         margin-top: 30px;
+        border-top: 1px solid #FFFFFF;
+        padding-top: 20px;
         text-align: center;
     }
     .addendum h2 {
         margin-bottom: 10px;
-        color: #333;
+        color: #FDFDFD;
     }
     .addendum p {
         margin-bottom: 15px;
-        color: #555;
+    }
+    /* Footer styles */
+    footer {
+        margin-top: 20px;
+        text-align: center;
+        color: #FFFFFF;
     }
 </style>
 </head>
@@ -75,27 +79,22 @@
 
 <h1>Lights Out</h1>
 
-<div class="board" id="board"></div>
-
-<div class="buttons">
-    <button onclick="startGame()">Start</button>
+<div class="container" id="board"></div>
+<div class="restart-btn">
     <button onclick="restartGame()">Restart</button>
 </div>
 
-<!-- Addendum explaining the creative process -->
+<!-- Addendum explaining the code and creative process -->
 <div class="addendum">
-    <h2>Addendum: Creative Process</h2>
+    <h2>Explanation and Creative Process:</h2>
     <p>
-        The "Lights Out" game was designed with a focus on creating an engaging and visually appealing experience for players. The game board is structured with a sleek grid layout, bordered and shadowed to give it a modern look.
+        The "Lights Out" game theme transports players into a space journey, where they navigate through galactic tiles to reach their destination. The design elements, such as the dark space background, deep blue tiles, and bright yellow active tiles, create an immersive space experience.
     </p>
     <p>
-        Stylistically, contrasting colors were used to enhance visibility and create a sense of interaction. The transition effect on cell clicks adds a subtle but satisfying visual feedback to the player's actions.
+        The game logic remains similar to the original "Lights Out" concept, where toggling cells simulates navigating through space tiles. The win condition signifies reaching the destination, adding a thematic touch to the gameplay.
     </p>
     <p>
-        One challenge faced during development was ensuring random yet solvable starting configurations for the board. This was overcome by implementing a toggle function that simulates clicks, allowing for a white board that becomes solvable upon user interaction.
-    </p>
-    <p>
-        Overall, the iterative design process and attention to detail resulted in a polished game interface that delivers an enjoyable gaming experience while maintaining simplicity and elegance.
+        Enhancements were made to the UI, including the color scheme, font, and button design, to align with the galactic theme and ensure player engagement. Iterative development and testing were crucial in refining the game mechanics and visual aesthetics for an enjoyable gaming experience.
     </p>
 </div>
 
@@ -144,12 +143,12 @@
             for (let j = 0; j < boardSize; j++) {
                 const cell = document.createElement('div');
                 cell.className = 'cell';
-                if (board[i][j] === 1) cell.classList.add('on');
+                if (board[i][j] === 1) cell.classList.add('active'); // Add 'active' class for lit tiles
                 cell.addEventListener('click', () => {
                     toggleCell(i, j);
                     renderBoard();
                     if (isSolved()) {
-                        window.alert('Congratulations! You win the game!');
+                        window.alert('Congratulations! You reached the destination!');
                         createBoard();
                         renderBoard();
                     }
@@ -160,19 +159,14 @@
     }
 
     // Initialize the game
-    function startGame() {
-        createBoard();
-        renderBoard();
-    }
+    createBoard();
+    renderBoard();
 
     // Restart the game
     function restartGame() {
         createBoard();
         renderBoard();
     }
-
-    // Initialize the game on load
-    window.onload = startGame;
 </script>
 
 </body>
